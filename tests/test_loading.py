@@ -34,6 +34,11 @@ Breathe.add_commands(,,,
     assert len(Breathe.core_commands) == 0
 
 def test_loading():
+    with open(file_path, 'w') as f:
+        f.write('\nfrom breathe import Breathe\nfrom ..testutils import DoNothing\n\nBreathe.add_commands(,,,\n    None,\n    {\n        "apple": DoNothing(),\n    }\n)\n')
+    modules = {'tests': {'my_grammar': ['fruit']}}
+    Breathe.load_modules(modules)
+    assert (len(Breathe.modules) == 1)
     with open(file_path, "w") as f:
         f.write("""
 from breathe import Breathe
